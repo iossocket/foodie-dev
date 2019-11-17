@@ -83,4 +83,12 @@ public class PassportController {
 
         return JSONResult.success(user);
     }
+
+    @DeleteMapping("/logout")
+    public JSONResult logout(@RequestParam String userId,
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
+        CookieUtils.deleteCookie(request, response, "user");
+        return JSONResult.success(userId);
+    }
 }
