@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
-public class UserBO {
+public class RegisterRequest {
     @NotEmpty
     private String username;
     @NotEmpty

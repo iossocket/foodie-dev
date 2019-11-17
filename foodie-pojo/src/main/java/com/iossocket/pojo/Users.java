@@ -1,5 +1,6 @@
 package com.iossocket.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Users {
     /**
      * 密码 密码
      */
+    @JsonIgnore
     private String password;
 
     /**
@@ -35,6 +37,7 @@ public class Users {
     /**
      * 真实姓名
      */
+    @JsonIgnore
     @Column(name = "real_name")
     private String realName;
 
@@ -66,12 +69,14 @@ public class Users {
     /**
      * 创建时间 创建时间
      */
+    @JsonIgnore
     @Column(name = "created_time")
     private Date createdTime;
 
     /**
      * 更新时间 更新时间
      */
+    @JsonIgnore
     @Column(name = "updated_time")
     private Date updatedTime;
 }

@@ -1,6 +1,7 @@
 package com.iossocket.service.impl;
 
-import com.iossocket.bo.UserBO;
+import com.iossocket.bo.LoginRequest;
+import com.iossocket.bo.RegisterRequest;
 import com.iossocket.enums.Gender;
 import com.iossocket.mapper.UsersMapper;
 import com.iossocket.pojo.Users;
@@ -41,7 +42,7 @@ public class PassportServiceImpl implements PassportService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public Users createUser(UserBO userBO) {
+    public Users createUser(RegisterRequest registerRequest) {
         String userId = sid.nextShort();
         if (userId == null) {
             return null;
@@ -50,9 +51,14 @@ public class PassportServiceImpl implements PassportService {
         Users user = new Users();
 
         user.setId(userId);
-        user.setUsername(userBO.getUsername());
-        user.setPassword(MD5Utils.getMD5Str(userBO.getPassword()));
-        user.setNickName(userBO.getUsername());
+        user.setUsername(registerRequest.getUsername());
+
+        String encryptedPwd = MD5Utils.getMD5Str(registerRequest.getPassword());
+        if (encryptedPwd == null) {
+            return null;
+        }
+        user.setPassword(encryptedPwd);
+        user.setNickName(registerRequest.getUsername());
         user.setAvatar(USER_AVATAR);
         user.setBirthday(DateUtil.stringToDate("1900-01-01"));
         user.setGender(Gender.unknown.type);
@@ -62,5 +68,20 @@ public class PassportServiceImpl implements PassportService {
 
         mapper.insert(user);
         return user;
+    }
+
+    @Override
+    public Users login(LoginRequest request) {
+        String encryptedPwd = MD5Utils.getMD5Str(request.getPassword());
+        if (encryptedPwd == null) {
+            return null;
+        }
+
+        Example userExample = new Example(Users.class);
+        Example.Criteria criteria = userExample.createCriteria();
+        criteria.andEqualTo("username", request.getUsername());
+        criteria.andEqualTo("password", encryptedPwd);
+
+        return mapper.selectOneByExample(userExample);
     }
 }
