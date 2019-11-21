@@ -5,6 +5,7 @@ import com.iossocket.pojo.Category;
 import com.iossocket.service.CarouselService;
 import com.iossocket.service.CategoryService;
 import com.iossocket.utils.JSONResult;
+import com.iossocket.vo.CategoryVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,12 @@ public class HomePageController {
     @GetMapping("/category/{level}")
     public JSONResult getCategoryByLevel(@PathVariable Integer level) {
         List<Category> result = categoryService.queryCategoryByParentId(level);
+        return JSONResult.success(result);
+    }
+
+    @GetMapping("/subcategory/{rootId}")
+    public JSONResult getAllSubCategoryByRootId(@PathVariable Integer rootId) {
+        List<CategoryVO> result = categoryService.queryAllSubCategoryByRootId(rootId);
         return JSONResult.success(result);
     }
 }
