@@ -6,11 +6,10 @@ import com.iossocket.service.CarouselService;
 import com.iossocket.service.CategoryService;
 import com.iossocket.utils.JSONResult;
 import com.iossocket.vo.CategoryVO;
+import com.iossocket.vo.LatestGoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RequestMapping("/home")
@@ -40,4 +39,11 @@ public class HomePageController {
         List<CategoryVO> result = categoryService.queryAllSubCategoryByRootId(rootId);
         return JSONResult.success(result);
     }
+
+    @GetMapping("/latestgoods")
+    public JSONResult getLatestGoodsByRootId(@RequestParam Integer rootId) {
+        LatestGoodsVO result = categoryService.queryLatestGoodsByRootId(rootId);
+        return JSONResult.success(result);
+    }
+
 }

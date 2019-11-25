@@ -5,11 +5,14 @@ import com.iossocket.mapper.CategoryMapperCustom;
 import com.iossocket.pojo.Category;
 import com.iossocket.service.CategoryService;
 import com.iossocket.vo.CategoryVO;
+import com.iossocket.vo.LatestGoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -30,6 +33,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryVO> queryAllSubCategoryByRootId(Integer rootId) {
-        return categoryMapperCustom.getSubCategoryList(rootId);
+        List<CategoryVO> result = categoryMapperCustom.getSubCategoryList(rootId);
+        return result;
+    }
+
+    @Override
+    public LatestGoodsVO queryLatestGoodsByRootId(Integer rootId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rootCategoryId", rootId);
+        return categoryMapperCustom.getLatestGoodsList(map);
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iossocket.mapper.CategoryMapperCustom" >
+<mapper namespace="com.iossocket.mapper.CategoryMapperCustom">
     <resultMap id="subCategoryVO" type="com.iossocket.vo.CategoryVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
@@ -37,4 +37,49 @@
         AND
             p.parent_id = #{rootCategoryId}
   </select>
+
+    <resultMap id="latestGoodsVO" type="com.iossocket.vo.LatestGoodsVO">
+        <id column="rootCategoryId" property="rootCategoryId"/>
+        <result column="rootCategoryName" property="rootCategoryName"/>
+        <result column="description" property="description"/>
+        <result column="categoryImage" property="categoryImage"/>
+        <result column="bgColor" property="bgColor"/>
+
+        <collection property="simpleGoodsList" ofType="com.iossocket.vo.SimpleGoodsVO">
+            <id column="goodsId" property="goodsId"/>
+            <result column="goodsName" property="goodsName"/>
+            <result column="goodsMainImgUrl" property="goodsMainImgUrl"/>
+        </collection>
+    </resultMap>
+    <select id="getLatestGoodsList" resultMap="latestGoodsVO" parameterType="Map">
+        SELECT
+            category.id as rootCategoryId,
+            category.`name` as rootCategoryName,
+            category.description as description,
+            category.cat_image as categoryImage,
+            category.bg_color as bgColor,
+            goods.id as goodsId,
+            goods.`name` as goodsName,
+            goods_img.url as goodsMainImgUrl,
+            goods.created_time as createdTime
+        FROM
+            category
+        LEFT JOIN
+            goods
+        ON
+            category.id = goods.root_category_id
+        LEFT JOIN
+            goods_img
+        ON
+            goods.id = goods_img.goods_id
+        WHERE
+            category.type = 1
+        AND
+            goods.root_category_id = #{paramsMap.rootCategoryId}
+        AND
+            goods_img.is_main = 1
+        ORDER BY
+            goods.created_time DESC
+        LIMIT 0,6
+    </select>
 </mapper>
