@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iossocket.mapper.GoodsDetailMapper">
+  <resultMap id="BaseResultMap" type="com.iossocket.pojo.GoodsDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="origin" jdbcType="VARCHAR" property="origin" />
+    <result column="expiration_date" jdbcType="VARCHAR" property="expirationDate" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="manufacturer_name" jdbcType="VARCHAR" property="manufacturerName" />
+    <result column="manufacturer_address" jdbcType="VARCHAR" property="manufacturerAddress" />
+    <result column="packaging_method" jdbcType="VARCHAR" property="packagingMethod" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="storage_method" jdbcType="VARCHAR" property="storageMethod" />
+    <result column="way_of_eating" jdbcType="VARCHAR" property="wayOfEating" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+</mapper>
