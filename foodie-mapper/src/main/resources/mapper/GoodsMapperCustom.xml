@@ -21,7 +21,6 @@
             AND goods_comments.comment_level = #{paramsMap.level}
         </if>
     </select>
-
     <select id="searchGoods" parameterType="Map" resultType="com.iossocket.vo.SearchGoodsVO">
         SELECT
             goods.id as goodsId,
@@ -62,6 +61,49 @@
             </when>
             <otherwise>
                 goods.name ASC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="queryGoodsByThirdCategory" parameterType="Map" resultType="com.iossocket.vo.SearchGoodsVO">
+        SELECT
+            goods.id as goodsId,
+            goods.name as goodsName,
+            goods.sales as sellCounts,
+            goods_img.url as imgUrl,
+            tempSpec.discount_price as price
+        FROM
+            goods
+        LEFT JOIN
+            goods_img
+        ON
+            goods.id = goods_img.goods_id
+        LEFT JOIN
+            (
+                SELECT
+                    goods_id,
+                    MIN(discount_price) as discount_price
+                FROM
+                    goods_spec
+                GROUP BY
+                    goods_id
+            ) tempSpec
+        ON
+            goods.id = tempSpec.goods_id
+        WHERE
+            goods_img.is_main = 1
+        AND
+            goods.category_id = #{paramsMap.categoryId}
+        ORDER BY
+        <choose>
+            <when test=" paramsMap.sort == &quot;c&quot; ">
+                goods.sales desc
+            </when>
+            <when test=" paramsMap.sort == &quot;p&quot; ">
+                tempSpec.discount_price asc
+            </when>
+            <otherwise>
+                goods.name asc
             </otherwise>
         </choose>
     </select>

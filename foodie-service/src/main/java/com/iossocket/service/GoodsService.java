@@ -17,4 +17,5 @@ public interface GoodsService {
     CommentLevelCountsVO queryCommentCounts(String goodsId);
     PagedGridResult queryGoodsComments(String goodsId, Integer level, Integer currentPageIndex, Integer pageRowCount);
     PagedGridResult searchGoods(String keyword, String sort, Integer currentPageIndex, Integer pageRowCount);
+    PagedGridResult queryGoodsByCategory(String categoryId, String sort, Integer currentPageIndex, Integer pageRowCount);
 }

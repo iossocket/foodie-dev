@@ -61,4 +61,13 @@ public class GoodsController {
         PagedGridResult result = goodsService.searchGoods(keyword, sort, currentPageIndex, pageSize);
         return JSONResult.success(result);
     }
+
+    @GetMapping("/goods")
+    public JSONResult queryGoodsByCategory(@RequestParam String categoryId,
+                                           @RequestParam String sort,
+                                           @RequestParam Integer currentPageIndex,
+                                           @RequestParam Integer pageSize) {
+        PagedGridResult result = goodsService.queryGoodsByCategory(categoryId, sort, currentPageIndex, pageSize);
+        return JSONResult.success(result);
+    }
 }

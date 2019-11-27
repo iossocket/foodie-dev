@@ -134,6 +134,18 @@ public class GoodsServiceImpl implements GoodsService {
         return setterPagedGrid(result, currentPageIndex);
     }
 
+    @Override
+    public PagedGridResult queryGoodsByCategory(String categoryId, String sort, Integer currentPageIndex, Integer pageRowCount) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryId", categoryId);
+        map.put("sort", sort);
+        PageHelper.startPage(currentPageIndex, pageRowCount);
+
+        List<SearchGoodsVO> result = goodsMapperCustom.queryGoodsByThirdCategory(map);
+
+        return setterPagedGrid(result, currentPageIndex);
+    }
+
     private PagedGridResult setterPagedGrid(List<?> list, Integer currentPageIndex) {
         PageInfo<?> pageList = new PageInfo<>(list);
         PagedGridResult grid = new PagedGridResult();
