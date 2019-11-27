@@ -6,12 +6,11 @@ import com.iossocket.pojo.GoodsImg;
 import com.iossocket.pojo.GoodsSpec;
 import com.iossocket.service.GoodsService;
 import com.iossocket.utils.JSONResult;
+import com.iossocket.utils.PagedGridResult;
+import com.iossocket.vo.CommentLevelCountsVO;
 import com.iossocket.vo.GoodsInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,5 +36,20 @@ public class GoodsController {
                 .goodsDetail(goodsDetail);
 
         return JSONResult.success(builder.build());
+    }
+
+    @GetMapping("/commentCount")
+    public JSONResult getGoodsCommentCount(@RequestParam String goodsId) {
+        CommentLevelCountsVO result = goodsService.queryCommentCounts(goodsId);
+        return JSONResult.success(result);
+    }
+
+    @GetMapping("/comments")
+    public JSONResult getGoodsComments(@RequestParam String goodsId,
+                                       @RequestParam Integer level,
+                                       @RequestParam Integer currentPageIndex,
+                                       @RequestParam Integer pageSize) {
+        PagedGridResult result = goodsService.queryGoodsComments(goodsId, level, currentPageIndex, pageSize);
+        return JSONResult.success(result);
     }
 }

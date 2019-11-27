@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iossocket.mapper.GoodsMapperCustom">
+    <select id="queryGoodsComments" parameterType="Map" resultType="com.iossocket.vo.GoodsCommentVO">
+        SELECT
+            users.nick_name as nickName,
+            users.avatar as avatar,
+            goods_comments.comment_level as commentLevel,
+            goods_comments.content as content,
+            goods_comments.spec_name as specName,
+            goods_comments.created_time as createdTime
+        FROM
+            goods_comments
+        LEFT JOIN
+            users
+        ON
+            goods_comments.user_id = users.id
+        WHERE
+            goods_comments.goods_id = #{paramsMap.goodsId}
+        <if test=" paramsMap.level != null and paramsMap.level != '' ">
+            AND goods_comments.comment_level = #{paramsMap.level}
+        </if>
+    </select>
+</mapper>
