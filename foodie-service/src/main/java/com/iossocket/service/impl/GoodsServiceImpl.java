@@ -9,6 +9,7 @@ import com.iossocket.utils.DesensitizationUtil;
 import com.iossocket.utils.PagedGridResult;
 import com.iossocket.vo.CommentLevelCountsVO;
 import com.iossocket.vo.GoodsCommentVO;
+import com.iossocket.vo.SearchGoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -117,6 +118,18 @@ public class GoodsServiceImpl implements GoodsService {
         for (GoodsCommentVO vo : result) {
             vo.setNickName(DesensitizationUtil.commonDisplay(vo.getNickName()));
         }
+
+        return setterPagedGrid(result, currentPageIndex);
+    }
+
+    @Override
+    public PagedGridResult searchGoods(String keyword, String sort, Integer currentPageIndex, Integer pageRowCount) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("keyword", keyword);
+        map.put("sort", sort);
+        PageHelper.startPage(currentPageIndex, pageRowCount);
+
+        List<SearchGoodsVO> result = goodsMapperCustom.searchGoods(map);
 
         return setterPagedGrid(result, currentPageIndex);
     }

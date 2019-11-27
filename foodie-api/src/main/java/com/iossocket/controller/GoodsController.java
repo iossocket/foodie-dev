@@ -52,4 +52,13 @@ public class GoodsController {
         PagedGridResult result = goodsService.queryGoodsComments(goodsId, level, currentPageIndex, pageSize);
         return JSONResult.success(result);
     }
+
+    @GetMapping("/search")
+    public JSONResult searchGoods(@RequestParam String keyword,
+                                  @RequestParam String sort,
+                                  @RequestParam Integer currentPageIndex,
+                                  @RequestParam Integer pageSize) {
+        PagedGridResult result = goodsService.searchGoods(keyword, sort, currentPageIndex, pageSize);
+        return JSONResult.success(result);
+    }
 }
