@@ -64,7 +64,6 @@
             </otherwise>
         </choose>
     </select>
-
     <select id="queryGoodsByThirdCategory" parameterType="Map" resultType="com.iossocket.vo.SearchGoodsVO">
         SELECT
             goods.id as goodsId,
@@ -106,5 +105,33 @@
                 goods.name asc
             </otherwise>
         </choose>
+    </select>
+    <select id="queryGoodsBySpecIds" parameterType="List" resultType="com.iossocket.vo.ShoppingCartVO">
+        SELECT
+            goods.id as goodsId,
+            goods.`name` as goodsName,
+            goods_img.url as goodsImgUrl,
+            goods_spec.id as specId,
+            goods_spec.`name` as specName,
+            goods_spec.discount_price as discountPrice,
+            goods_spec.origin_price as originPrice
+        FROM
+            goods_spec
+        LEFT JOIN
+            goods
+        ON
+            goods_spec.goods_id = goods.id
+        LEFT JOIN
+            goods_img
+        ON
+            goods_img.goods_id = goods.id
+        WHERE
+            goods_img.is_main = 1
+        AND
+            goods_spec.id
+        IN
+        <foreach collection="paramsList" index="index" item="specId" open="(" separator="," close=")">
+            #{specId}
+        </foreach>
     </select>
 </mapper>

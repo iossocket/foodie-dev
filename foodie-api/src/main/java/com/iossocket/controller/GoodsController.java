@@ -9,9 +9,12 @@ import com.iossocket.utils.JSONResult;
 import com.iossocket.utils.PagedGridResult;
 import com.iossocket.vo.CommentLevelCountsVO;
 import com.iossocket.vo.GoodsInfoVO;
+import com.iossocket.vo.ShoppingCartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -68,6 +71,15 @@ public class GoodsController {
                                            @RequestParam Integer currentPageIndex,
                                            @RequestParam Integer pageSize) {
         PagedGridResult result = goodsService.queryGoodsByCategory(categoryId, sort, currentPageIndex, pageSize);
+        return JSONResult.success(result);
+    }
+
+    @GetMapping("/shoppingcart")
+    public JSONResult queryGoodsBySpecIds(@RequestParam String specIdListString) {
+        String[] ids = specIdListString.split(",");
+        ArrayList<String> specIds = new ArrayList<>();
+        Collections.addAll(specIds, ids);
+        List<ShoppingCartVO> result = goodsService.queryGoodsBySpecIds(specIds);
         return JSONResult.success(result);
     }
 }

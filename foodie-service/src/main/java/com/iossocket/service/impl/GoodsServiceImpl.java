@@ -10,6 +10,7 @@ import com.iossocket.utils.PagedGridResult;
 import com.iossocket.vo.CommentLevelCountsVO;
 import com.iossocket.vo.GoodsCommentVO;
 import com.iossocket.vo.SearchGoodsVO;
+import com.iossocket.vo.ShoppingCartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -144,6 +145,11 @@ public class GoodsServiceImpl implements GoodsService {
         List<SearchGoodsVO> result = goodsMapperCustom.queryGoodsByThirdCategory(map);
 
         return setterPagedGrid(result, currentPageIndex);
+    }
+
+    @Override
+    public List<ShoppingCartVO> queryGoodsBySpecIds(List<String> specIdList) {
+        return goodsMapperCustom.queryGoodsBySpecIds(specIdList);
     }
 
     private PagedGridResult setterPagedGrid(List<?> list, Integer currentPageIndex) {

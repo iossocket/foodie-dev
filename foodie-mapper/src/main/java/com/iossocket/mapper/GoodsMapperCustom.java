@@ -2,6 +2,7 @@ package com.iossocket.mapper;
 
 import com.iossocket.vo.GoodsCommentVO;
 import com.iossocket.vo.SearchGoodsVO;
+import com.iossocket.vo.ShoppingCartVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface GoodsMapperCustom {
     List<GoodsCommentVO> queryGoodsComments(@Param("paramsMap") Map<String, Object> map);
     List<SearchGoodsVO> searchGoods(@Param("paramsMap") Map<String, Object> map);
     List<SearchGoodsVO> queryGoodsByThirdCategory(@Param("paramsMap") Map<String, Object> map);
+    List<ShoppingCartVO> queryGoodsBySpecIds(@Param("paramsList") List specIdList);
 }

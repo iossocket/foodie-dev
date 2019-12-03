@@ -6,6 +6,7 @@ import com.iossocket.pojo.GoodsImg;
 import com.iossocket.pojo.GoodsSpec;
 import com.iossocket.utils.PagedGridResult;
 import com.iossocket.vo.CommentLevelCountsVO;
+import com.iossocket.vo.ShoppingCartVO;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface GoodsService {
     PagedGridResult queryGoodsComments(String goodsId, Integer level, Integer currentPageIndex, Integer pageRowCount);
     PagedGridResult searchGoods(String keyword, String sort, Integer currentPageIndex, Integer pageRowCount);
     PagedGridResult queryGoodsByCategory(String categoryId, String sort, Integer currentPageIndex, Integer pageRowCount);
+    List<ShoppingCartVO> queryGoodsBySpecIds(List<String> specIdList);
 }
