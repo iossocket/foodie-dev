@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iossocket.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.iossocket.pojo.Orders">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile" />
+    <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress" />
+    <result column="total_price" jdbcType="INTEGER" property="totalPrice" />
+    <result column="final_price" jdbcType="INTEGER" property="finalPrice" />
+    <result column="post_fees" jdbcType="INTEGER" property="postFees" />
+    <result column="pay_method" jdbcType="INTEGER" property="payMethod" />
+    <result column="left_msg" jdbcType="VARCHAR" property="leftMsg" />
+    <result column="extend" jdbcType="VARCHAR" property="extend" />
+    <result column="is_comment" jdbcType="INTEGER" property="isComment" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iossocket.mapper.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.iossocket.pojo.OrderDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_main_img" jdbcType="VARCHAR" property="goodsMainImg" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_spec_id" jdbcType="VARCHAR" property="goodsSpecId" />
+    <result column="goods_spec_name" jdbcType="VARCHAR" property="goodsSpecName" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+  </resultMap>
+</mapper>
