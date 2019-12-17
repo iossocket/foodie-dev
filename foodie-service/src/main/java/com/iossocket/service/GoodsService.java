@@ -8,6 +8,7 @@ import com.iossocket.utils.PagedGridResult;
 import com.iossocket.vo.CommentLevelCountsVO;
 import com.iossocket.vo.ShoppingCartVO;
 
+import java.util.Date;
 import java.util.List;
 
 public interface GoodsService {
@@ -22,5 +23,5 @@ public interface GoodsService {
     List<ShoppingCartVO> queryGoodsBySpecIds(List<String> specIdList);
     GoodsSpec queryGoodsSpecById(String specId);
     String queryGoodsMainImgById(String goodsId);
-    void decreaseGoodsSpecStock(String specId, int buyCounts);
+    void decreaseGoodsSpecStock(String specId, int buyCounts, Date date);
 }

@@ -138,7 +138,8 @@
         UPDATE
             goods_spec
         SET
-            stock = stock - #{pendingCounts}
+            stock = stock - #{pendingCounts},
+            updated_time = #{updatedTime}
         WHERE
             id = #{specId}
         AND

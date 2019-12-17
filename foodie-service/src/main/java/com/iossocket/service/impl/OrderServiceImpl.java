@@ -14,12 +14,14 @@ import com.iossocket.vo.MerchantOrdersVO;
 import com.iossocket.vo.OrderVO;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -97,6 +99,7 @@ public class OrderServiceImpl implements OrderService {
             String orderDetailId = sid.nextShort();
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setId(orderDetailId);
+            orderDetail.setOrderId(orderId);
             orderDetail.setGoodsId(goodsId);
             orderDetail.setGoodsName(goods.getName());
             orderDetail.setGoodsMainImg(imgUrl);
@@ -107,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
             orderDetailMapper.insert(orderDetail);
 
             // 2.4 在用户提交订单以后，规格表中需要扣除库存
-            goodsService.decreaseGoodsSpecStock(specId, buyCounts);
+            goodsService.decreaseGoodsSpecStock(specId, buyCounts, date);
         }
 
         newOrder.setTotalPrice(totalOriginPrice);

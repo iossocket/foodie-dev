@@ -17,10 +17,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -168,8 +171,8 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void decreaseGoodsSpecStock(String specId, int buyCounts) {
-        int result = goodsMapperCustom.decreaseGoodsSpecStock(specId, buyCounts);
+    public void decreaseGoodsSpecStock(String specId, int buyCounts, Date date) {
+        int result = goodsMapperCustom.decreaseGoodsSpecStock(specId, buyCounts, date);
         if (result != 1) {
             throw new RuntimeException("订单创建失败，原因：库存不足!");
         }
