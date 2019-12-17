@@ -22,6 +22,14 @@ public class AddressServiceImpl implements AddressService {
     private Sid sid;
 
     @Override
+    public UserAddress queryAddress(String userId, String addressId) {
+        UserAddress address = new UserAddress();
+        address.setUserId(userId);
+        address.setId(addressId);
+        return userAddressMapper.selectOne(address);
+    }
+
+    @Override
     public List<UserAddress> queryAll(String userId) {
         UserAddress address = new UserAddress();
         address.setUserId(userId);

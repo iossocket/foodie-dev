@@ -20,4 +20,7 @@ public interface GoodsService {
     PagedGridResult searchGoods(String keyword, String sort, Integer currentPageIndex, Integer pageRowCount);
     PagedGridResult queryGoodsByCategory(String categoryId, String sort, Integer currentPageIndex, Integer pageRowCount);
     List<ShoppingCartVO> queryGoodsBySpecIds(List<String> specIdList);
+    GoodsSpec queryGoodsSpecById(String specId);
+    String queryGoodsMainImgById(String goodsId);
+    void decreaseGoodsSpecStock(String specId, int buyCounts);
 }

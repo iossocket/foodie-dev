@@ -152,6 +152,29 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapperCustom.queryGoodsBySpecIds(specIdList);
     }
 
+    @Override
+    public GoodsSpec queryGoodsSpecById(String specId) {
+        return goodsSpecMapper.selectByPrimaryKey(specId);
+    }
+
+    @Override
+    public String queryGoodsMainImgById(String goodsId) {
+        Example example = new Example(GoodsImg.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("goodsId", goodsId);
+        criteria.andEqualTo("isMain",1);
+        GoodsImg img = goodsImgMapper.selectOneByExample(example);
+        return img.getUrl();
+    }
+
+    @Override
+    public void decreaseGoodsSpecStock(String specId, int buyCounts) {
+        int result = goodsMapperCustom.decreaseGoodsSpecStock(specId, buyCounts);
+        if (result != 1) {
+            throw new RuntimeException("订单创建失败，原因：库存不足!");
+        }
+    }
+
     private PagedGridResult setterPagedGrid(List<?> list, Integer currentPageIndex) {
         PageInfo<?> pageList = new PageInfo<>(list);
         PagedGridResult grid = new PagedGridResult();
