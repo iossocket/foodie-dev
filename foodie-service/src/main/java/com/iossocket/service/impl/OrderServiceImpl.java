@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setUpdatedTime(date);
 
         // 2. 循环根据itemSpecIds保存订单商品信息表
-        String goodsSpecIdArr[] = goodsSpecIds.split(",");
+        String[] goodsSpecIdArr = goodsSpecIds.split(",");
         Integer totalOriginPrice = 0;
         Integer totalDiscountPrice = 0;
 
