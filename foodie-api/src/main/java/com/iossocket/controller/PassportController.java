@@ -11,13 +11,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -69,9 +72,13 @@ public class PassportController {
                             HttpServletRequest request,
                             HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
-            List<ObjectError> errors = bindingResult.getAllErrors();
-            log.info("errors: {}", errors);
-            return JSONResult.error("parameter error");
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            Map<String, String> errorObject = new HashMap<>();
+            for (FieldError error : errors) {
+                errorObject.put(error.getField(), error.getDefaultMessage());
+            }
+            log.info("create order error: {}", errorObject);
+            return JSONResult.error(errorObject);
         }
 
         Users user = passportService.login(loginRequest);
