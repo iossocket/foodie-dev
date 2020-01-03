@@ -11,4 +11,5 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:file-upload-dev.properties")
 public class FileUpload {
     private String avatarStoragePath;
+    private String avatarBaseUrl;
 }

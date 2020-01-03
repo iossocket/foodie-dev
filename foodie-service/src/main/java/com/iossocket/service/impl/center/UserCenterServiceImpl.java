@@ -32,4 +32,14 @@ public class UserCenterServiceImpl implements UserCenterService {
         usersMapper.updateByPrimaryKeySelective(users);
         return usersMapper.selectByPrimaryKey(userId);
     }
+
+    @Override
+    public Users updateUserAvatar(String userId, String avatarUrl) {
+        Users users = new Users();
+        users.setId(userId);
+        users.setAvatar(avatarUrl);
+        users.setUpdatedTime(new Date());
+        usersMapper.updateByPrimaryKeySelective(users);
+        return usersMapper.selectByPrimaryKey(userId);
+    }
 }

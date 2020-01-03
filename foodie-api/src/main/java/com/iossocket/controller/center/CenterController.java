@@ -5,9 +5,11 @@ import com.iossocket.pojo.Users;
 import com.iossocket.resource.FileUpload;
 import com.iossocket.service.center.UserCenterService;
 import com.iossocket.utils.CookieUtils;
+import com.iossocket.utils.DateUtil;
 import com.iossocket.utils.JSONResult;
 import com.iossocket.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -84,7 +86,14 @@ public class CenterController {
         try {
             File outputFile = new File(finalPath);
             file.transferTo(outputFile);
-            return JSONResult.success("Upload successfully");
+
+            String avatarUrlWithTimeStamp = fileUpload.getAvatarBaseUrl()
+                    + avatarPrefix + File.separator + newFileName
+                    + "?t=" + DateUtil.getCurrentDateString(DateUtil.DATE_PATTERN);
+
+            Users users = userCenterService.updateUserAvatar(id, avatarUrlWithTimeStamp);
+
+            return JSONResult.success(users);
         } catch (IOException e) {
             log.error(e.toString());
         }
