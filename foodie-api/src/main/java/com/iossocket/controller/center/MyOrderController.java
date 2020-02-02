@@ -1,5 +1,7 @@
 package com.iossocket.controller.center;
 
+import com.iossocket.enums.OrderStatusEnum;
+import com.iossocket.pojo.Orders;
 import com.iossocket.service.center.MyOrderService;
 import com.iossocket.utils.JSONResult;
 import com.iossocket.utils.PagedGridResult;
@@ -18,5 +20,19 @@ public class MyOrderController {
                                     @RequestParam("pageSize") Integer size) {
         PagedGridResult result = myOrderService.queryMyOrders(userId, null, index, size);
         return JSONResult.success(result);
+    }
+
+    @PutMapping("/user/{id}/orders")
+    public JSONResult updateOrderStatusToReceived(@PathVariable("id") String userId,
+                                                  @RequestBody String orderId) {
+        Orders order = myOrderService.updateOrderStatus(userId, orderId, OrderStatusEnum.SUCCESS);
+        return JSONResult.success(order);
+    }
+
+    @DeleteMapping("/user/{userId}/orders/{orderId}")
+    public JSONResult deleteOrder(@PathVariable("userId") String userId,
+                                  @PathVariable("orderId") String orderId) {
+        Integer result = myOrderService.deleteOrder(userId, orderId);
+        return JSONResult.success(result == 1);
     }
 }
